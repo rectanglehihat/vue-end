@@ -9,22 +9,36 @@
       <input id="password" type="text" v-model="password" />
     </div>
     <button>로그인</button>
+    <p>{{ logMessage }}</p>
   </form>
 </template>
 
 <script>
-import axios from "axios";
+import { loginUser } from "@/api/index";
 
 export default {
   data() {
     return {
       username: "",
       password: "",
+      logMessage: "",
     };
   },
   methods: {
-    submitForm() {
-      axios.post();
+    async submitForm() {
+      const userData = {
+        username: this.username,
+        password: this.password,
+      };
+      const { data } = await loginUser(userData);
+      console.log(data.user.username);
+      this.logMessage = `${data.user.username}님 환영합니다`;
+      this.initForm();
+    },
+    initForm() {
+      this.username = "";
+      this.password = "";
+      this.nickname = "";
     },
   },
 };

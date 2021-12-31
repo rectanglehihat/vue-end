@@ -26,14 +26,20 @@ export default {
   },
   methods: {
     async submitForm() {
-      const userData = {
-        username: this.username,
-        password: this.password,
-      };
-      const { data } = await loginUser(userData);
-      console.log(data.user.username);
-      this.logMessage = `${data.user.username}님 환영합니다`;
-      this.initForm();
+      try {
+        const userData = {
+          username: this.username,
+          password: this.password,
+        };
+        const { data } = await loginUser(userData);
+        console.log(data.user.username);
+        this.logMessage = `${data.user.username}님 환영합니다`;
+      } catch (error) {
+        console.log(error.response.data);
+        this.logMessage = error.response.data;
+      } finally {
+        this.initForm();
+      }
     },
     initForm() {
       this.username = "";

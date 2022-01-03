@@ -8,8 +8,18 @@
     </div>
     <div class="post-time">
       {{ postItem.createdAt | formatData }}
-      <i class="icon ion-md-create" @click="routeEditPage"></i>
+      <!-- <i class="icon ion-md-create" @click="routeEditPage"></i> -->
+      <ion-icon
+        name="create-outline"
+        class="icon ion-md-create"
+        @click="routeEditPage"
+      ></ion-icon>
       <i class="icon ion-md-trash" @click="deleteItem"></i>
+      <ion-icon
+        name="trash-outline"
+        class="icon ion-md-trash"
+        @click="deleteItem"
+      ></ion-icon>
     </div>
   </li>
 </template>

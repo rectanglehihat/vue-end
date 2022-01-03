@@ -4,7 +4,6 @@
       <router-link to="/" class="logo">
         TIL
         <span v-if="isUserLogin">by {{ $store.state.username }}</span>
-        <a href="javascript:;" @click="logoutUser">Logout</a>
       </router-link>
     </div>
     <div class="navigations">

@@ -3,14 +3,18 @@
     <div>
       <router-link to="/" class="logo">
         TIL
+        <span v-if="isUserLogin">by {{ $store.state.username }}</span>
+        <a href="javascript:;" @click="logoutUser">Logout</a>
       </router-link>
     </div>
     <div class="navigations">
-      <!-- 로그인 상태일 때  -->
+      <!-- 1 -->
       <template v-if="isUserLogin">
-        <span class="username">{{ $store.state.username }}</span>
+        <a href="javascript:;" @click="logoutUser" class="logout-button">
+          Logout
+        </a>
       </template>
-      <!-- 로그아웃 상태일 때 -->
+      <!-- 2 -->
       <template v-else>
         <router-link to="/login">로그인</router-link>
         <router-link to="/signup">회원가입</router-link>
@@ -24,6 +28,12 @@ export default {
   computed: {
     isUserLogin() {
       return this.$store.getters.isLogin;
+    },
+  },
+  methods: {
+    logoutUser() {
+      this.$store.commit("clearUsername");
+      this.$router.push("/login");
     },
   },
 };
@@ -62,6 +72,9 @@ a.logo {
   position: fixed;
   top: 0;
   width: 100%;
+}
+.logout-button {
+  font-size: 14px;
 }
 a.router-link-exact-active {
   color: white;

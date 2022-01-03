@@ -10,6 +10,9 @@
         <div>
           <label for="contents">Contents: </label>
           <textarea type="text" id="contents" rows="5" v-model="contents" />
+          <p v-if="!isContentsValid" class="validation-text warning">
+            Contents must be less than 200
+          </p>
         </div>
         <button class="btn">Create</button>
       </form>
@@ -27,6 +30,11 @@ export default {
       contents: "",
       logMessage: "",
     };
+  },
+  computed: {
+    isContentsValid() {
+      return this.contents.length <= 200;
+    },
   },
   methods: {
     async submitForm() {

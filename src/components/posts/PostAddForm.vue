@@ -13,6 +13,7 @@
         </div>
         <button class="btn">Create</button>
       </form>
+      <p class="log">{{ logMessage }}</p>
     </div>
   </div>
 </template>
@@ -24,15 +25,21 @@ export default {
     return {
       title: "",
       contents: "",
+      logMessage: "",
     };
   },
   methods: {
     async submitForm() {
-      const response = await createPost({
-        title: this.title,
-        contents: this.contents,
-      });
-      console.log(response);
+      try {
+        const response = await createPost({
+          title: this.title,
+          contents: this.contents,
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
     },
   },
 };

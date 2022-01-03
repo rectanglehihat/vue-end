@@ -1,21 +1,24 @@
 import axios from "axios";
+import store from "@/store/index";
+import { setInterceptors } from "./common/interceptors";
 
-const instance = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
-  headers: {
-    Authorization: "test1234",
-  },
-});
+function createInstance() {
+  const instance = axios.create({
+    baseURL: process.env.VUE_APP_API_URL,
+    headers: {
+      Authorization: store.state.token,
+    },
+  });
 
-// const config = {
-//   baseURL: "https://api-nodejs-todolist.herokuapp.com",
-// };
+  return setInterceptors(instance);
+}
+
+const instance = createInstance();
 
 function registerUser(userData) {
   // const url = "http://localhost:3000/signup";
   // return axios.post(url, userData);
   return instance.post("signup", userData);
-  // return axios.post(`${config.baseURL}/user/register`, userData);
 }
 
 function loginUser(userData) {

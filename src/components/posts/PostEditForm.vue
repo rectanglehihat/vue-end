@@ -40,7 +40,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const id = this.$route.params._id;
+        const id = this.$route.params.id;
         await editPost(id, {
           title: this.title,
           contents: this.contents,
@@ -52,7 +52,7 @@ export default {
     },
   },
   async created() {
-    const id = this.$route.params._id;
+    const id = this.$route.params.id;
     const { data } = await fetchPost(id);
     this.title = data.title;
     this.contents = data.contents;

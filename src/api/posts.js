@@ -21,7 +21,7 @@ function deletePost(postId) {
   return posts.delete(postId);
 }
 
-// 한습노트 데이터 수정하는 API
+// 학습노트 데이터 수정하는 API
 function editPost(postId, postData) {
   return posts.put(postId, postData);
 }

@@ -39,7 +39,7 @@ export default {
       this.isLoading = true;
       const { data } = await fetchPosts();
       this.isLoading = false;
-      console.log(data.posts);
+      // console.log(data.posts);
       this.postItems = data.posts;
     },
   },

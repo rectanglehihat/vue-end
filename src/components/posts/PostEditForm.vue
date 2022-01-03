@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">Create Post</h1>
+    <h1 class="page-header">Edit Post</h1>
     <div class="form-wrapper">
       <form class="form" @submit.prevent="submitForm">
         <div>
@@ -14,7 +14,7 @@
             Contents must be less than 200
           </p>
         </div>
-        <button class="btn">Create</button>
+        <button class="btn">Edit</button>
       </form>
       <p class="log">{{ logMessage }}</p>
     </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { createPost } from "@/api/posts";
+import { fetchPost, editPost } from "@/api/posts";
 
 export default {
   data() {
@@ -40,17 +40,22 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await createPost({
+        const id = this.$route.params._id;
+        await editPost(id, {
           title: this.title,
           contents: this.contents,
         });
         this.$router.push("/main");
-        console.log(response);
       } catch (error) {
-        console.log(error.response.data.message);
-        this.logMessage = error.response.data.message;
+        this.logMessage = error;
       }
     },
+  },
+  async created() {
+    const id = this.$route.params._id;
+    const { data } = await fetchPost(id);
+    this.title = data.title;
+    this.contents = data.contents;
   },
 };
 </script>

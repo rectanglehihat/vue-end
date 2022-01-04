@@ -40,14 +40,14 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await createPost({
+        await createPost({
           title: this.title,
           contents: this.contents,
         });
         this.$router.push("/main");
-        console.log(response);
+        // console.log(response);
       } catch (error) {
-        console.log(error.response.data.message);
+        // console.log(error.response.data.message);
         this.logMessage = error.response.data.message;
       }
     },

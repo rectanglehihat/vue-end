@@ -44,7 +44,7 @@ export default {
       if (confirm("Do you want to delete it?")) {
         await deletePost(this.postItem._id);
         this.$emit("refresh");
-        console.log("delete");
+        // console.log("delete");
       }
     },
     routeEditPage() {

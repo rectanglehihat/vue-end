@@ -26,8 +26,8 @@ describe("LoginForm.vue", () => {
     const wrapper = shallowMount(LoginForm, {
       data() {
         return {
-          username: "a@a.com",
-          password: "1234",
+          username: "",
+          password: "",
         };
       },
     });

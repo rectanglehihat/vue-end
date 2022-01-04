@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 // import LoginPage from "@/views/LoginPage.vue";
 // import SignupPage from "@/views/SignupPage.vue";
 
@@ -23,14 +24,23 @@ const router = new VueRouter({
     {
       path: "/main",
       component: () => import("@/views/MainPage.vue"),
+      meta: {
+        auth: true,
+      },
     },
     {
       path: "/add",
       component: () => import("@/views/PostAddPage.vue"),
+      meta: {
+        auth: true,
+      },
     },
     {
       path: "/post/:id",
       component: () => import("@/views/PostEditPage.vue"),
+      meta: {
+        auth: true,
+      },
     },
     {
       path: "*",
@@ -40,7 +50,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // console.log(to);
+  // 인증이 필요한 페이지이면서 사용자가 로그아웃 상태일때,
+  if (to.meta.auth && !store.getters.isLogin) {
+    console.log("인증이 필요합니다");
+    next("/login");
+    return;
+  }
   next();
 });
 
